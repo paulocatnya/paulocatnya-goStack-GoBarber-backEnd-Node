@@ -1,0 +1,32 @@
+yarn add typeorm pg  
+yarn typeorm migrations:run rodar migration
+yarn typeorm migrations:revert desfaz migration
+yarn typeorm migrations:show ver executadas
+
+
+errro:
+    "No metadata for \"Appointment\" was found."
+    solucao --> yarn add reflect-metadata
+    add "entities":["./src/models/*.ts"], no ormconfig.json
+
+yarn typeorm migration:create -n CreateUsers  --- cria migration
+
+yarn typeorm migrations:create -n alterProviderFieldToProviderId
+
+encriptação 
+yarn add bckyptjs   
+yarn add -D @types/bcryptjs
+
+
+JWT
+yarn add jsonwebtoken
+yarn add -D @types/jsonwebtoken
+
+yarn add multer
+yarn add -D @types/multer
+Trabalhar com imagens, update no expres
+multer
+
+ERROS
+Apenas criar um middleware nao é suficiente, 
+yarn add express-async-errors
