@@ -1,9 +1,10 @@
 import { startOfHour,isBefore } from 'date-fns'
 import {getCustomRepository} from 'typeorm'
 
-import Appointment from '../entities/Appointment'
+import Appointment from '@modules/appointments/infra/typeorm/entities/Appointment'
+
 import AppointmentsRepository from '../repositories/AppointmentsRepository'
-import AppError from '../../../../src/shared/errors/AppError'
+import AppError from '@shared/errors/AppError'
 
 
 interface Request {
