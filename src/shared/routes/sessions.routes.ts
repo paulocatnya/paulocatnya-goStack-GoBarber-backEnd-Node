@@ -2,7 +2,7 @@
 import { Router } from 'express'
 import { getCustomRepository } from 'typeorm'
 
-import AuthenticateUserService from '../services/AuthenticateUserService'
+import AuthenticateUserService from '../../modules/users/services/AuthenticateUserService'
 
 const sessionsRouter = Router();
 
@@ -28,7 +28,7 @@ sessionsRouter.post('/', async (request, response) => {
         created_at: user.created_at,
         updated_at: user.updated_at,
     };
-    console.log('Logou:',userWithoutPassword.email)
+    console.log('Logou:',userWithoutPassword)
     return response.status(200).json({ user:userWithoutPassword, token })
 })
 

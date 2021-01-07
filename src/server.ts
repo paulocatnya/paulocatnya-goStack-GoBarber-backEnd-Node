@@ -5,10 +5,10 @@ import 'express-async-errors'
 
 import cors from 'cors';
 
-import routes from './routes'
-import './database/';
+import routes from './shared/routes'
+import './shared/database';
 import uploadConfig from './config/upload'
-import AppError from './errors/AppError'
+import AppError from './shared/errors/AppError'
 
 const app = express();
 
@@ -39,5 +39,5 @@ app.use((err: Error, request: Request, response: Response, next: NextFunction) =
 })
 
 app.listen(3335, () => {
-    console.log(' Subiu:3335 ! 💥')
+    console.log(' Back-end GoBarber -- Subiu:3335 ! 💥')
 }) 

@@ -4,9 +4,9 @@ import { getCustomRepository } from 'typeorm'
 
 import { hash } from 'bcryptjs'
 
-import User from '../models/User'
+import User from '../entities/User'
 import UsersRepository from '../repositories/UsersRepository'
-import AppError from '../errors/AppError'
+import AppError from '../../../shared/errors/AppError'
 
 
 interface Request {
