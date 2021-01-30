@@ -1,44 +1,44 @@
-import { startOfHour,isBefore } from 'date-fns'
-import {getCustomRepository} from 'typeorm'
+import { startOfHour } from 'date-fns'
+import { injectable,inject } from 'tsyringe';
 
-import Appointment from '@modules/appointments/infra/typeorm/entities/Appointment'
 
-import AppointmentsRepository from '../repositories/AppointmentsRepository'
+import AppointmentsRepository from '../infra/typeorm/repositories/AppointmentsRepository'
 import AppError from '@shared/errors/AppError'
 
+import Appointment from '@modules/appointments/infra/typeorm/entities/Appointment'
+import IAppointmentsRepository from '../repositories/IAppointmentsRepository'
 
-interface Request {
+
+interface IRequest {
     provider_id: string,
     date: Date;
 }
 
+@injectable()
 class CreateAppointmentService {
-    
-    public async execute({ date, provider_id }: Request): Promise<Appointment> {
+    constructor(
+        @inject('AppointmentsRepository')
+        private appointmentsRepository: IAppointmentsRepository
+        ){}
 
-        const appointmentsRepository = getCustomRepository(AppointmentsRepository);
+    public async execute({ date, provider_id }: IRequest): Promise<Appointment> {
+
 
         const appointmentDate = startOfHour(date);
 
-        const findAppointmentInSameDate = await appointmentsRepository.findByDate(
+        const findAppointmentInSameDate = await this.appointmentsRepository.findByDate(
             appointmentDate,
         );
-        
+
         if (findAppointmentInSameDate) {
             throw new AppError('This appointment is already booked');
         }
 
-        if (isBefore(appointmentDate,Date.now())) {
-            throw new AppError(`You cannot schedule for dates less than today`);
-        }
-
-
-        const appointment = appointmentsRepository.create({
+        const appointment = await this.appointmentsRepository.create({
             provider_id,
             date: appointmentDate
         });
 
-        await appointmentsRepository.save(appointment);
 
         return appointment;
 
